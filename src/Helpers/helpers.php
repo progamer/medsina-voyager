@@ -1,4 +1,38 @@
 <?php
+use TCG\Voyager\Facades\Voyager;
+
+if (!function_exists('admins')) {
+  /**
+   * @param string $key
+   * @param null   $default
+   * @return mixed|null
+   */
+  function admins()
+  {
+    $admins = Voyager::model('User')->whereRole('admin')->get();
+
+    return $admins;
+  }
+}
+
+if (!function_exists('input')) {
+  /**
+   * @param string $key
+   * @param null   $default
+   * @return mixed|null
+   */
+  function input($key = '', $default = null)
+  {
+    return (Illuminate\Support\Facades\Input::has($key) ? Illuminate\Support\Facades\Input::get($key) : $default);
+  }
+}
+
+if (!function_exists('user')) {
+  function user()
+  {
+    return request()->user();
+  }
+}
 
 if (!function_exists('setting')) {
     function setting($key, $default = null)
